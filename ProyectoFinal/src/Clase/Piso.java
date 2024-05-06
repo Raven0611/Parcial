@@ -5,11 +5,11 @@ public class Piso {
     private int numero;
     private Habitacion[] habitaciones;
 
-    public Piso(int[] cantCamillas) {
-
+    public Piso(int numero, int[] cantCamillas) {
+        this.numero = numero;
         this.habitaciones = new Habitacion[4];
         for (int i = 0; i < habitaciones.length; i++) {
-            this.numero = i;
+
             habitaciones[i] = new Habitacion(String.valueOf(numero), cantCamillas[i]);
         }
     }
@@ -32,7 +32,7 @@ public class Piso {
 
     @Override
     public String toString() {
-        return "Numero de pisos   " + numero + "\n" + getHabitaciones();
+        return "PISO   " + (numero) + "\n" + getHabitaciones();
     }
 
 }

@@ -5,9 +5,11 @@ public class Habitacion {
     private String id;
     private int capacidadMaxima;
     private Camilla[] camillas;
+    private boolean estado;
 
     public Habitacion(String id, int capacidadMaxima) {
         this.id = id;
+        this.estado = true;
         this.capacidadMaxima = capacidadMaxima;
         this.camillas = new Camilla[capacidadMaxima];
         for (int i = 0; i < capacidadMaxima; i++) {
@@ -43,9 +45,21 @@ public class Habitacion {
         return mostrar;
     }
 
+    public boolean obtenerEstado() {
+        return this.estado;
+    }
+
+    public void activarHabitacion() {
+        this.estado = true;
+    }
+
+    public void desactivarHabitacion() {
+        this.estado = false;
+    }
+
     @Override
     public String toString() {
-        return "Habitacion  " + id + "\ncapacidadMaxima=" + capacidadMaxima + "\n"
+        return "Habitacion  " + id + "  estado   " + estado + "\ncapacidadMaxima=" + capacidadMaxima + "\n"
                 + getCamillas();
     }
 
