@@ -13,7 +13,7 @@ public class Clinica {
             for (int j = 0; j < pisos.length; j++) {
                 variable[i] = matrizCamilla[i][j];
             }
-            pisos[i] = new Piso(i, variable);
+            pisos[i] = new Piso(i + 1, variable);
         }
     }
 

@@ -10,7 +10,7 @@ public class Piso {
         this.habitaciones = new Habitacion[4];
         for (int i = 0; i < habitaciones.length; i++) {
 
-            habitaciones[i] = new Habitacion(String.valueOf(numero), cantCamillas[i]);
+            habitaciones[i] = new Habitacion(String.valueOf(numero) + "0" + (i + 1), cantCamillas[i]);
         }
     }
 

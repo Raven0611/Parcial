@@ -14,7 +14,7 @@ public class Habitacion {
         this.camillas = new Camilla[capacidadMaxima];
         for (int i = 0; i < capacidadMaxima; i++) {
             if (i < 10) {
-                this.camillas[i] = new Camilla(id + "0" + i);
+                this.camillas[i] = new Camilla(id + "0" + (i + 1));
             } else {
                 this.camillas[i] = new Camilla(id + i);
             }
