@@ -7,6 +7,7 @@ public class Main {
         //raven es una perra sarnosa
         Clinica clinica = new Clinica("Ayshat", x);
         System.out.println(clinica.toString());
+        InterfazAdministrador i = new InterfazAdministrador();
     }
 
 }

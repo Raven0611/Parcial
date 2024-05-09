@@ -12,7 +12,7 @@ public class Administrador extends Persona{
     private String usuario;
     private String contrasenia;
 
-    public Administrador(String usuario, String contrasenia, String nombre, char sexo, int edad, int numeroTelefono, int identificacion, String correo) {
+    public Administrador(String usuario, String contrasenia, String nombre, char sexo, int edad, String numeroTelefono, String identificacion, String correo) {
         super(nombre, sexo, edad, numeroTelefono, identificacion, correo);
         this.usuario = usuario;
         this.contrasenia = contrasenia;

@@ -4,10 +4,12 @@ public class Camilla {
 
     private String id;
     private boolean disponible;
+    private Paciente paciente;
 
     public Camilla(String id) {
         this.id = id;
         this.disponible = true;
+        this.paciente = null;
     }
 
     public String getId() {
@@ -22,8 +24,9 @@ public class Camilla {
         return disponible;
     }
 
-    public void ocupar() {
+    public void ocupar(Paciente paciente) {
         disponible = false;
+        this.paciente = paciente;
     }
 
     public void liberar() {

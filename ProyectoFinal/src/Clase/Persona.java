@@ -12,11 +12,11 @@ public class Persona {
     private String nombre;
     private char sexo;
     private int edad;
-    private int numeroTelefono;
-    private int identificacion;
+    private String numeroTelefono;
+    private String identificacion;
     private String correo;
 
-    public Persona(String nombre, char sexo, int edad, int numeroTelefono, int identificacion, String correo) {
+    public Persona(String nombre, char sexo, int edad, String numeroTelefono, String identificacion, String correo) {
         this.nombre = nombre;
         this.sexo = sexo;
         this.edad = edad;
@@ -40,11 +40,11 @@ public class Persona {
         this.edad = edad;
     }
 
-    public void setNumeroTelefono(int numeroTelefono) {
+    public void setNumeroTelefono(String numeroTelefono) {
         this.numeroTelefono = numeroTelefono;
     }
 
-    public void setIdentificacion(int identificacion) {
+    public void setIdentificacion(String identificacion) {
         this.identificacion = identificacion;
     }
 
@@ -64,11 +64,11 @@ public class Persona {
         return edad;
     }
 
-    public int getNumeroTelefono() {
+    public String getNumeroTelefono() {
         return numeroTelefono;
     }
 
-    public int getIdentificacion() {
+    public String getIdentificacion() {
         return identificacion;
     }
 
