@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Clase;
 
 import java.awt.Color;
@@ -19,14 +15,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-/**
- *
- * @author Dialejo
- */
 public class InterfazAdministrador extends JFrame implements ActionListener {
-    
-    JButton iniciarSesion;
-    JButton crearAdmin;
+
+    JButton iniciarSesion, crearAdmin, crearUsuario;
     JTextField usuario;
     JLabel avisoCrearUsuario;
     JPasswordField contrasenia;
@@ -41,25 +32,24 @@ public class InterfazAdministrador extends JFrame implements ActionListener {
     JPasswordField nuevaContrasenia;
     JTextField correo;
     JTextField telefono;
-    JButton crearUsuario;
     JComboBox<String> sexo;
-    
-    int[][] x = {{2, 3, 2, 5}, {3, 3, 2, 5}, {1, 4, 3, 2}, {2, 3, 4, 5}};
-    
+    JPanel crearClinica;
+    int[][] xClase = {{2, 3, 2, 5}, {3, 3, 2, 5}, {1, 4, 3, 2}};
+
     public InterfazAdministrador() {
-        this.setSize(600,600);
+        this.setSize(600, 600);
         this.setLayout(null);
         this.setLocationRelativeTo(null);
         this.setTitle("Iniciar sesion");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.getContentPane().setBackground(Color.white);
         this.setResizable(false);
-        
+
         titulo = new JLabel("CLINICA HEALTHCARE");
         titulo.setFont(new Font("Calibri", Font.BOLD, 40));
-        titulo.setBounds(115,50,400,40);
+        titulo.setBounds(115, 50, 400, 40);
         this.add(titulo);
-        
+
         avisoCrearUsuario = new JLabel("O crea un nuevo usuario:");
         avisoCrearUsuario.setFont(new Font("Arial", Font.ITALIC, 15));
         avisoCrearUsuario.setBounds(210, 365, 200, 30);
@@ -69,31 +59,31 @@ public class InterfazAdministrador extends JFrame implements ActionListener {
         crearAdmin.setFocusable(false);
         crearAdmin.addActionListener(this);
         this.add(crearAdmin);
-        
+
         login = new JPanel();
         login.setLayout(null);
         login.setBounds(150, 140, 300, 300);
-        
+
         login.setBackground(Color.white);
         this.add(login);
         iniciarSesion = new JButton("Iniciar sesion");
-        iniciarSesion.setBounds(70,150,150,30);
+        iniciarSesion.setBounds(70, 150, 150, 30);
         iniciarSesion.setFocusable(false);
         iniciarSesion.addActionListener(this);
         login.add(iniciarSesion);
-        
+
         usuario = new JTextField();
         usuario.setBounds(70, 20, 150, 45);
         TitledBorder borde = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Ingrese su usuario");
         usuario.setBorder(borde);
         login.add(usuario);
-        
+
         contrasenia = new JPasswordField();
         contrasenia.setBounds(70, 80, 150, 45);
         TitledBorder bordeContrasenia = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Ingrese su contraseña");
         contrasenia.setBorder(bordeContrasenia);
         login.add(contrasenia);
-        
+
         signup = new JPanel();
         signup.setLayout(null);
         signup.setBounds(150, 95, 300, 460);
@@ -140,12 +130,10 @@ public class InterfazAdministrador extends JFrame implements ActionListener {
         signup.add(correo);
         signup.add(telefono);
         this.add(signup);
-        
-        
-        
+
         this.setVisible(true);
-        
-        clinica = new Clinica("HealthCare", x);
+
+        clinica = new Clinica("HealthCare", xClase);
     }
 
     @Override
@@ -155,12 +143,24 @@ public class InterfazAdministrador extends JFrame implements ActionListener {
             crearAdmin.setVisible(false);
             login.setVisible(false);
             signup.setVisible(true);
-            
+
         } else if (e.getSource() == iniciarSesion) {
             String usuarioInput = usuario.getText();
             String contraseniaInput = new String(contrasenia.getPassword());
             if (clinica.verificarAdministrador(usuarioInput, contraseniaInput)) {
                 JOptionPane.showMessageDialog(null, "Ha ingresado exitosamente", "Bienvenido", JOptionPane.PLAIN_MESSAGE);
+                CrearClinica x = new CrearClinica();
+                x.setBounds(0, 0, getWidth(), getHeight());
+                this.getContentPane().add(x);
+                setSize(600, 600);
+                x.setVisible(true);
+
+                //  clinica.setMatrizCamilla(x.getMatriz());
+                
+                
+                signup.setVisible(false);
+                crearAdmin.setVisible(false);
+                login.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Credenciales invalidas", "Título del mensaje", JOptionPane.WARNING_MESSAGE);
             }
@@ -168,13 +168,13 @@ public class InterfazAdministrador extends JFrame implements ActionListener {
             String userNombre = nombre.getText();
             String userIdentificacion = identificacion.getText();
             int userEdad = Integer.parseInt(edad.getText());
-            char userSexo = sexo.getSelectedIndex() == 0 ? 'M': 'F';
+            char userSexo = sexo.getSelectedIndex() == 0 ? 'M' : 'F';
             String userCorreo = correo.getText();
             String userUsuario = nuevoUsuario.getText();
             String userContrasenia = new String(nuevaContrasenia.getPassword());
             String userTelefono = telefono.getText();
             Administrador admin = new Administrador(userUsuario, userContrasenia, userNombre, userSexo, userEdad,
-            userTelefono, userIdentificacion, userCorreo);
+                    userTelefono, userIdentificacion, userCorreo);
             clinica.agregarAdministrador(admin);
             signup.setVisible(false);
             avisoCrearUsuario.setVisible(true);
@@ -183,7 +183,7 @@ public class InterfazAdministrador extends JFrame implements ActionListener {
             limpiarCampos();
         }
     }
-    
+
     public void limpiarCampos() {
         JTextField[] campos = {usuario, nombre, telefono, identificacion, edad, correo, nuevoUsuario};
         for (int i = 0; i < campos.length; i++) {
@@ -192,7 +192,5 @@ public class InterfazAdministrador extends JFrame implements ActionListener {
         contrasenia.setText("");
         nuevaContrasenia.setText("");
     }
-    
-    
-    
+
 }
