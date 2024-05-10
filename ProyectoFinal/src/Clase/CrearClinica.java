@@ -6,16 +6,17 @@ import java.awt.event.*;
 
 class CrearClinica extends JPanel {
 
-    JButton crearClinica;
+    public JButton botonCrearClinica;
     JLabel titulo;
     JLabel[] texto;
     JTextField[] habitaciones;
     private int[][] matriz;
 
-    public CrearClinica() {
+    public CrearClinica(Clinica clinica) {
         setLayout(null);
 
         titulo = new JLabel("Asigna camillas a cada habitacion");
+
         titulo.setFont(new Font("Calibri", Font.BOLD, 20));
         titulo.setBounds(150, 30, 300, 20);
         add(titulo);
@@ -44,17 +45,17 @@ class CrearClinica extends JPanel {
             limitar(habitaciones[i]);
             add(habitaciones[i]);
         }
-        crearClinica = new JButton("CREAR CLINICA");
-        crearClinica.setBounds(400, 500, 150, 40);
+        botonCrearClinica = new JButton("CREAR CLINICA");
+        botonCrearClinica.setBounds(400, 500, 150, 40);
 
-        crearClinica.addActionListener(new ActionListener() {
+        botonCrearClinica.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 arreglo(habitaciones);
+                clinica.setMatrizCamilla(getMatriz());
             }
         });
-
-        add(crearClinica);
+        add(botonCrearClinica);
     }
 
     private JTextField limitar(JTextField entrada) {
@@ -92,5 +93,9 @@ class CrearClinica extends JPanel {
 
     public int[][] getMatriz() {
         return matriz;
+    }
+
+    public JButton getCrearClinica() {
+        return botonCrearClinica;
     }
 }
