@@ -6,16 +6,18 @@ public class Clinica {
     private Piso[] pisos;
     private Administrador[] administradores;
     int index;
+    private int[][] matrizCamilla;
 
     public Clinica(String nombreClinica, int[][] matrizCamilla) {
         this.administradores = new Administrador[20];
         this.index = 0;
         int[] variable = new int[4];
         this.nombreClinica = nombreClinica;
+        this.matrizCamilla = matrizCamilla;
         this.pisos = new Piso[3];
         for (int i = 0; i < pisos.length; i++) {
             for (int j = 0; j < pisos.length; j++) {
-                variable[i] = matrizCamilla[i][j];
+                variable[i] = this.matrizCamilla[i][j];
             }
             pisos[i] = new Piso(i + 1, variable);
         }
@@ -36,31 +38,40 @@ public class Clinica {
         }
         return mostrar;
     }
-    
+
     public boolean agregarAdministrador(Administrador admin) {
         if (index < 20) {
             administradores[index] = admin;
             index++;
             return true;
         }
-        
+
         return false;
     }
-    
+
     public boolean verificarAdministrador(String usuario, String contrasenia) {
         for (int i = 0; i < index; i++) {
-            if (administradores[i].getUsuario().equals(usuario) && 
-                    administradores[i].getContrasenia().equals(contrasenia)) {
+            if (administradores[i].getUsuario().equals(usuario)
+                    && administradores[i].getContrasenia().equals(contrasenia)) {
                 return true;
             }
         }
-        
+
         return false;
     }
 
     @Override
     public String toString() {
         return "Clinica  " + nombreClinica + "\n" + getPisos();
+    }
+
+    public int[][] getMatrizCamilla() {
+        return matrizCamilla;
+    }
+
+    public void setMatrizCamilla(int[][] matrizCamilla) {
+        System.out.println("MODIFICADO");
+        this.matrizCamilla = matrizCamilla;
     }
 
 }
