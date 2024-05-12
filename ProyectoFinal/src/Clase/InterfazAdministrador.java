@@ -149,7 +149,7 @@ public class InterfazAdministrador extends JFrame implements ActionListener {
             String contraseniaInput = new String(contrasenia.getPassword());
             if (clinica.verificarAdministrador(usuarioInput, contraseniaInput)) {
                 JOptionPane.showMessageDialog(null, "Ha ingresado exitosamente", "Bienvenido", JOptionPane.PLAIN_MESSAGE);
-                CrearClinica x = new CrearClinica();
+                CrearClinica x = new CrearClinica(new Clinica("healthcare", xClase));
                 x.setBounds(0, 0, getWidth(), getHeight());
                 this.getContentPane().add(x);
                 setSize(600, 600);

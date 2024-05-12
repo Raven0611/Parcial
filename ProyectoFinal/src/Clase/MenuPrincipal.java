@@ -3,7 +3,11 @@ package Clase;
 import javax.swing.JPanel;
 
 public class MenuPrincipal extends JPanel {
-
+    
+    public MenuPrincipal() {
+        this.setLayout(null);
+        
+    }
 }
 
 
