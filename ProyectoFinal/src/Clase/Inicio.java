@@ -46,9 +46,16 @@ public class Inicio extends Componente implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        this.setVisible(false);
+        
         if (e.getSource() == moduloAdmin) {
-            this.setVisible(false);
-            menu.mostrarAdmin();
+            menu.mostrarComponente("administrador");
+            
+        } else if (e.getSource() == moduloMedicos) {
+            menu.mostrarComponente("medico");
+            
+        } else {
+            menu.mostrarComponente("administrativo");
         }
     }
 }

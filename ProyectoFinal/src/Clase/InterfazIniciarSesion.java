@@ -15,11 +15,9 @@ public class InterfazIniciarSesion extends Componente{
     JButton iniciarSesion;
     Credenciales credenciales;
     Object listener;
-    String tipoInicioSesion;
     
-    public InterfazIniciarSesion(Object listener, String tipoInicioSesion) {
+    public InterfazIniciarSesion(Object listener) {
         this.listener = listener;
-        this.tipoInicioSesion = tipoInicioSesion;
         
         this.setLayout(null);
         this.setBackground(Color.white);
@@ -34,9 +32,7 @@ public class InterfazIniciarSesion extends Componente{
     }
     
     public void agregarListener() {
-        if (tipoInicioSesion.equals("administrador")) {
-            InterfazAdministrador i = (InterfazAdministrador) listener;
-            iniciarSesion.addActionListener(i);
-        }
+        InterfazGeneral i = (InterfazGeneral) listener;
+        iniciarSesion.addActionListener(i);
     }
 }

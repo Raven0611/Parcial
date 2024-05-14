@@ -16,13 +16,11 @@ public class Registro extends Componente {
     Formulario formulario;
     Credenciales credenciales;
     Object listener;
-    String tipoRegistro;
     
-    public Registro(Object listener, String tipoRegistro) {
+    public Registro(Object listener) {
         this.setLayout(null);
         this.setBackground(Color.white);
-        this.listener = (InterfazAdministrador) listener;
-        this.tipoRegistro = tipoRegistro;
+        this.listener = (InterfazGeneral) listener;
         
         formulario = new Formulario();
         formulario.setBounds(50,0,400, 200);
@@ -40,10 +38,8 @@ public class Registro extends Componente {
     }
     
     public void agregarListener() {
-        if (tipoRegistro.equals("administrador")) {
-            InterfazAdministrador i = (InterfazAdministrador) listener;
-            registrar.addActionListener(i);
-        }
+        InterfazGeneral i = (InterfazGeneral) listener;
+        registrar.addActionListener(i);
         
     }
     

@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 public class MenuPrincipal extends JFrame {
     JLabel titulo;
     Inicio inicio;
-    InterfazAdministrador admin;
+    InterfazGeneral interfaz;
     
     public MenuPrincipal() {
         this.setLayout(null);
@@ -23,22 +23,24 @@ public class MenuPrincipal extends JFrame {
         this.setResizable(false);
         
         inicio = new Inicio(this);
-        admin = new InterfazAdministrador(inicio);
-        admin.setVisible(false);
+        interfaz = new InterfazGeneral(inicio);
+        interfaz.setVisible(false);
         
         titulo = new JLabel("CLINICA HEALTHCARE");
         titulo.setFont(new Font("Calibri", Font.BOLD, 40));
         titulo.setBounds(115, 30, 400, 40);
         this.add(titulo);
         this.add(inicio);
-        this.add(admin);
+        this.add(interfaz);
         
         
         this.setVisible(true);
     }
     
-    public void mostrarAdmin() {
-        admin.setVisible(true);
+    public void mostrarComponente(String componente) {
+        interfaz.setVisible(true);
+        interfaz.setDependencia(componente);
+        
     }
     
    

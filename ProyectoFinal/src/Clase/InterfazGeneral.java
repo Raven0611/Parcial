@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class InterfazAdministrador extends Componente implements ActionListener {
+public class InterfazGeneral extends Componente implements ActionListener {
 
     JLabel avisoCrearUsuario;
     JButton crearUsuario;
@@ -17,32 +17,34 @@ public class InterfazAdministrador extends Componente implements ActionListener 
     JPanel nuevoUsuario;
     InterfazIniciarSesion login;
     Registro registro;
-    Administrador[] administradores;
     JPanel currentDir;
-    int index;
     Card card;
     Inicio init;
+    String dependencia;
+    Clinica clinica;
 
-    public InterfazAdministrador(Inicio init) {
+    int[][] x;
+
+    public InterfazGeneral(Inicio init) {
+        x = new int[][]{{2, 3, 2, 5}, {3, 3, 2, 5}, {1, 4, 3, 2}};
+        clinica = new Clinica("HealthCare", x);
+
         this.setBounds(40, 70, 600, 500);
         this.setBackground(Color.white);
         this.setLayout(null);
         this.init = init;
-        this.index = 0;
 
-        administradores = new Administrador[10];
-
-        login = new InterfazIniciarSesion(this, "administrador");
+        login = new InterfazIniciarSesion(this);
         currentDir = login;
         login.setBounds(100, 10, 300, 200);
         this.add(login);
 
-        registro = new Registro(this, "administrador");
+        registro = new Registro(this);
         registro.setBounds(0, 0, 400, 400);
         registro.setVisible(false);
         this.add(registro);
 
-        card = new Card();
+        card = new Card(clinica);
         card.setVisible(false);
         this.add(card);
 
@@ -50,6 +52,7 @@ public class InterfazAdministrador extends Componente implements ActionListener 
         nuevoUsuario.setLayout(null);
         nuevoUsuario.setBounds(160, 210, 300, 200);
         nuevoUsuario.setBackground(Color.white);
+        nuevoUsuario.setVisible(false);
 
         avisoCrearUsuario = new JLabel("O crea un nuevo usuario:");
         avisoCrearUsuario.setFont(new Font("Arial", Font.ITALIC, 15));
@@ -86,23 +89,33 @@ public class InterfazAdministrador extends Componente implements ActionListener 
             } else {
                 this.setVisible(false);
                 init.setVisible(true);
-                
+
             }
 
         } else if (e.getSource() == login.iniciarSesion) {
-            setVisibility(false, false, true);
-            currentDir = card;
+            String usuario = login.credenciales.usuario.getText();
+            String password = new String(login.credenciales.contrasenia.getPassword());
+            
+            if (clinica.verificarUsuario(usuario, password, dependencia)) {
+                setVisibility(false, false, true);
+                currentDir = card;
+            } else {
+                JOptionPane.showMessageDialog(null, "Credenciales invalidas", "Título del mensaje", JOptionPane.WARNING_MESSAGE);
+            }
+            
+            login.credenciales.limpiarCredenciales();
+            
         }
     }
 
-    private boolean agregarAdministrador(Administrador admin) {
-        if (index < 20) {
-            administradores[index] = admin;
-            index++;
-            return true;
-        }
+    public void setDependencia(String dependencia) {
+        this.dependencia = dependencia;
+        if (dependencia.equals("administrador")) {
+            nuevoUsuario.setVisible(true);
 
-        return false;
+        } else {
+            nuevoUsuario.setVisible(false);
+        }
     }
 
     private void registrarAdministrador() {
@@ -111,26 +124,18 @@ public class InterfazAdministrador extends Componente implements ActionListener 
         String password = new String(registro.credenciales.contrasenia.getPassword());
         Administrador admin = new Administrador(usuario, password, input[0], input[6].charAt(0),
                 Integer.parseInt(input[2]), input[4], input[1], input[3]);
-        agregarAdministrador(admin);
+        clinica.agregarAdministrador(admin);
         registro.limpiarRegistro();
-    }
-
-    private boolean verificarAdministrador(String usuario, String contrasenia) {
-        for (int i = 0; i < index; i++) {
-            if (administradores[i].getUsuario().equals(usuario)
-                    && administradores[i].getContrasenia().equals(contrasenia)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private void setVisibility(boolean type1, boolean type2, boolean type3) {
         login.setVisible(type1);
-        nuevoUsuario.setVisible(type1);
         registro.setVisible(type2);
         card.setVisible(type3);
+
+        if (dependencia.equals("administrador")) {
+            nuevoUsuario.setVisible(type1);
+        }
     }
 
 }
