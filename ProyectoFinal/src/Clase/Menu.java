@@ -9,7 +9,7 @@ import javax.swing.JTextArea;
 
 public class Menu extends Componente {
 
-    JButton mostrarPersona;
+    JButton mostrarPersona, crearPersona;
     JTextArea mostrar;
 
     public Menu(Clinica clinica) {
@@ -22,12 +22,12 @@ public class Menu extends Componente {
                 mostrar.setText(clinica.getPisos());
             }
         });
-
         add(mostrarPersona);
         mostrar = crearTextArea("mostrar", 180, 0, 400, 300);
         JScrollPane scrollPane = new JScrollPane(mostrar);
         scrollPane.setBounds(180, 0, 400, 300);
         add(scrollPane);
+        
     }
 }
 

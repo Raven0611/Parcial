@@ -129,16 +129,16 @@ public class Clinica {
     }
 
     public boolean desactivarHabitacion(int piso, int habitacion) {
-        return this.pisos[piso].desactivarHabitacion(habitacion);
+        return this.pisos[piso].desactivarHabitacionPiso(habitacion);
     }
 
     public boolean activarHabitacion(int piso, int habitacion) {
-        return this.pisos[piso].activarHabitacion(habitacion);
+        return this.pisos[piso].activarHabitacionPiso(habitacion);
     }
 
     public boolean liberarPaciente(int piso, int habitacion, int camilla) {
         if (piso <= pisos.length) {
-            return pisos[piso].liberarPacienteHabitacion(habitacion, camilla);
+            return pisos[piso].liberarPacienteHabitacionPiso(habitacion, camilla);
         }
         return false;
     }

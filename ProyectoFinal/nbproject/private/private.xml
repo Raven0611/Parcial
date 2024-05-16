@@ -4,12 +4,19 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Card.java</file>
-            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Clinica.java</file>
-            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/InterfazGeneral.java</file>
-            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Registro.java</file>
+            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Inicio.java</file>
+            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/MenuPrincipal.java</file>
             <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Formulario.java</file>
             <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Medico.java</file>
+            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Habitacion.java</file>
             <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Credenciales.java</file>
+            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Clinica.java</file>
+            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Main.java</file>
+            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/InterfazGeneral.java</file>
+            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Registro.java</file>
+            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/CrearClinica.java</file>
+            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Piso.java</file>
+            <file>file:/C:/Users/Dialejo/Documents/coding/Parcial/ProyectoFinal/src/Clase/Menu.java</file>
         </group>
     </open-files>
 </project-private>

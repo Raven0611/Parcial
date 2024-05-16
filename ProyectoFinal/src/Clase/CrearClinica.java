@@ -5,22 +5,22 @@ import java.awt.*;
 import java.awt.event.*;
 
 class CrearClinica extends JPanel {
-
+    
     public JButton botonCrearClinica;
     JLabel titulo;
     JLabel[] texto;
     JTextField[] habitaciones;
     private int[][] matriz;
-
-    public CrearClinica(Clinica clinica) {
+    
+    public CrearClinica(Clinica clinica, JPanel panel) {
         setLayout(null);
-
+        
         titulo = new JLabel("Asigna camillas a cada habitacion");
-
+        
         titulo.setFont(new Font("Calibri", Font.BOLD, 20));
         titulo.setBounds(150, 30, 300, 20);
         add(titulo);
-
+        
         texto = new JLabel[3];
         for (int i = 0; i < texto.length; i++) {
             texto[i] = new JLabel("Piso " + (i + 1));
@@ -28,7 +28,7 @@ class CrearClinica extends JPanel {
             texto[i].setBounds(90, ((i + 1) * 130), 50, 17);
             add(texto[i]);
         }
-
+        
         habitaciones = new JTextField[12];
         for (int i = 0; i < habitaciones.length; i++) {
             habitaciones[i] = new JTextField();
@@ -47,19 +47,21 @@ class CrearClinica extends JPanel {
         }
         botonCrearClinica = new JButton("CREAR CLINICA");
         botonCrearClinica.setBounds(400, 500, 150, 40);
-
+        
         botonCrearClinica.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 arreglo(habitaciones);
                 clinica.setMatrizCamilla(getMatriz());
+                panel.setVisible(true);
+                setVisible(false);
             }
         });
         add(botonCrearClinica);
     }
-
+    
     private JTextField limitar(JTextField entrada) {
-
+        
         entrada.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -76,7 +78,7 @@ class CrearClinica extends JPanel {
         });
         return entrada;
     }
-
+    
     private void arreglo(JTextField[] entrada) {
         this.matriz = new int[3][4];
         for (int i = 0; i < 3; i++) {
@@ -90,11 +92,11 @@ class CrearClinica extends JPanel {
             }
         }
     }
-
+    
     public int[][] getMatriz() {
         return matriz;
     }
-
+    
     public JButton getCrearClinica() {
         return botonCrearClinica;
     }
