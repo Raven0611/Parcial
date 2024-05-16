@@ -31,11 +31,21 @@ public class Camilla {
 
     public void liberar() {
         disponible = true;
+        this.paciente = null;
+    }
+
+    public Paciente getPaciente() {
+        return this.paciente;
     }
 
     @Override
     public String toString() {
-        return "Camilla  " + id + " disponible= " + disponible + "\n";
+        if (paciente == null) {
+            return "   Camilla No :  " + id + "      Vacia \n";
+        } else {
+            return "    Camilla No :  " + id + "    Id =    " + paciente.getIdentificacion()
+                    + "    nombre =    " + paciente.getNombre() + "\n";
+        }
     }
 
 }
