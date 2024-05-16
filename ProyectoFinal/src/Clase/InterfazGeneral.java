@@ -14,7 +14,7 @@ public class InterfazGeneral extends Componente implements ActionListener {
     JLabel avisoCrearUsuario;
     JButton crearUsuario;
     JButton regresar;
-    JPanel nuevoUsuario;
+    JPanel nuevoUsuario, menu;
     InterfazIniciarSesion login;
     Registro registro;
     JPanel currentDir;
@@ -22,7 +22,7 @@ public class InterfazGeneral extends Componente implements ActionListener {
     Inicio init;
     String dependencia;
     Clinica clinica;
-
+    CrearClinica crearClinica;
     int[][] x;
 
     public InterfazGeneral(Inicio init) {
@@ -69,12 +69,19 @@ public class InterfazGeneral extends Componente implements ActionListener {
         regresar.addActionListener(this);
         this.add(regresar);
 
+        menu = new Menu();
+
+        crearClinica = new CrearClinica(clinica, menu);
+        crearClinica.setBounds(0, 0, 500, 500);
+        crearClinica.setVisible(false);
+        this.add(crearClinica);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == crearUsuario) {
-            setVisibility(false, true, false);
+            setVisibility(false, true, false, false);
             currentDir = registro;
 
         } else if (e.getSource() == registro.registrar) {
@@ -83,7 +90,8 @@ public class InterfazGeneral extends Componente implements ActionListener {
 
         } else if (e.getSource() == regresar) {
             if (currentDir == registro || currentDir == card) {
-                setVisibility(true, false, false);
+                setVisibility(true, false, false, false);
+                crearClinica.setVisible(false);
                 currentDir = login;
 
             } else {
@@ -95,16 +103,16 @@ public class InterfazGeneral extends Componente implements ActionListener {
         } else if (e.getSource() == login.iniciarSesion) {
             String usuario = login.credenciales.usuario.getText();
             String password = new String(login.credenciales.contrasenia.getPassword());
-            
+
             if (clinica.verificarUsuario(usuario, password, dependencia)) {
-                setVisibility(false, false, true);
-                currentDir = card;
+                setVisibility(false, false, false, true);
+                currentDir = crearClinica;
             } else {
                 JOptionPane.showMessageDialog(null, "Credenciales invalidas", "Título del mensaje", JOptionPane.WARNING_MESSAGE);
             }
-            
+
             login.credenciales.limpiarCredenciales();
-            
+
         }
     }
 
@@ -128,10 +136,11 @@ public class InterfazGeneral extends Componente implements ActionListener {
         registro.limpiarRegistro();
     }
 
-    private void setVisibility(boolean type1, boolean type2, boolean type3) {
+    private void setVisibility(boolean type1, boolean type2, boolean type3, boolean type4) {
         login.setVisible(type1);
         registro.setVisible(type2);
         card.setVisible(type3);
+        crearClinica.setVisible(type4);
 
         if (dependencia.equals("administrador")) {
             nuevoUsuario.setVisible(type1);
