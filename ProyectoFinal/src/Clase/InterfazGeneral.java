@@ -26,8 +26,12 @@ public class InterfazGeneral extends Componente implements ActionListener {
     int[][] x;
 
     public InterfazGeneral(Inicio init) {
-        x = new int[][]{{2, 3, 2, 5}, {3, 3, 2, 5}, {1, 4, 3, 2}};
-        clinica = new Clinica("HealthCare", x);
+        int[][] matrizCamilla = {
+            {5, 5, 5, 5},
+            {4, 4, 4, 4},
+            {3, 3, 3, 3}
+        };
+        clinica = new Clinica("HealthCare", matrizCamilla);
 
         this.setBounds(40, 70, 600, 500);
         this.setBackground(Color.white);
@@ -69,7 +73,7 @@ public class InterfazGeneral extends Componente implements ActionListener {
         regresar.addActionListener(this);
         this.add(regresar);
 
-        menu = new Menu();
+        menu = new Menu(clinica);
 
         crearClinica = new CrearClinica(clinica, menu);
         crearClinica.setBounds(0, 0, 500, 500);

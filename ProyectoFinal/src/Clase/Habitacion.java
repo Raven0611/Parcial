@@ -14,7 +14,7 @@ public class Habitacion {
         this.camillas = new Camilla[capacidadMaxima];
         for (int i = 0; i < capacidadMaxima; i++) {
             if (i < 10) {
-                this.camillas[i] = new Camilla(id + "0" + (i + 1));
+                this.camillas[i] = new Camilla(id + " 0" + (i + 1));
             } else {
                 this.camillas[i] = new Camilla(id + i);
             }
@@ -45,6 +45,10 @@ public class Habitacion {
         return mostrar;
     }
 
+    public Camilla[] getCamilla() {
+        return this.camillas;
+    }
+
     public boolean obtenerEstado() {
         return this.estado;
     }
@@ -57,9 +61,17 @@ public class Habitacion {
         this.estado = false;
     }
 
+    public boolean liberarPacienteHabitacion(int num) {
+        if (camillas[num].isDisponible() && num <= camillas.length) {
+            camillas[num].liberar();
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
-        return "Habitacion  " + id + "  estado   " + estado + "\ncapacidadMaxima=" + capacidadMaxima + "\n"
+        return "Habitacion  " + id + "  estado habitacion   " + estado + "\n"
                 + getCamillas();
     }
 
