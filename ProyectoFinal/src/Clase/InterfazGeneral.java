@@ -75,8 +75,8 @@ public class InterfazGeneral extends Componente implements ActionListener {
 
         menu = new Menu(clinica);
 
-        crearClinica = new CrearClinica(clinica, menu);
-        crearClinica.setBounds(0, 0, 500, 500);
+        crearClinica = new CrearClinica(clinica, menu, regresar);
+        crearClinica.setBounds(10, 0, 500, 500);
         crearClinica.setVisible(false);
         this.add(crearClinica);
 
@@ -93,7 +93,7 @@ public class InterfazGeneral extends Componente implements ActionListener {
             regresar.doClick();
 
         } else if (e.getSource() == regresar) {
-            if (currentDir == registro || currentDir == card) {
+            if (currentDir == registro || currentDir == card || currentDir == crearClinica) {
                 setVisibility(true, false, false, false);
                 crearClinica.setVisible(false);
                 currentDir = login;
@@ -108,9 +108,16 @@ public class InterfazGeneral extends Componente implements ActionListener {
             String usuario = login.credenciales.usuario.getText();
             String password = new String(login.credenciales.contrasenia.getPassword());
 
-            if (clinica.verificarUsuario(usuario, password, dependencia)) {
-                setVisibility(false, false, false, true);
-                currentDir = crearClinica;
+            if (/*clinica.verificarUsuario(usuario, password, dependencia)*/ true) {
+                
+                if (!crearClinica.clinicaCreada) { //La asignacion de camillas solo se realizara una vez
+                    currentDir = crearClinica;
+                    setVisibility(false, false, false, true);
+                } else {
+                    currentDir = card;
+                    setVisibility(false, false, true, false);
+                }
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Credenciales invalidas", "Título del mensaje", JOptionPane.WARNING_MESSAGE);
             }

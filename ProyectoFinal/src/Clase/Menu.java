@@ -31,9 +31,9 @@ public class Menu extends Componente {
     }
 }
 
-class Inicio extends JFrame {
+class Ini extends JFrame {
 
-    public Inicio() {
+    public Ini() {
         setTitle("Inicio");
         setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +52,7 @@ class Inicio extends JFrame {
 
     public static void main(String[] args) {
 
-        Inicio inicio = new Inicio();
+        Ini inicio = new Ini();
 
     }
 }

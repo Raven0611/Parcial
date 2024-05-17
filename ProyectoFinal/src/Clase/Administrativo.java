@@ -13,7 +13,8 @@ public class Administrativo extends Persona{
     private String contrasenia;
     private String cargo;
 
-    public Administrativo(String usuario, String contrasenia, String cargo, String nombre, char sexo, int edad, String numeroTelefono, String identificacion, String correo) {
+    public Administrativo( String cargo, String nombre, char sexo, int edad, String numeroTelefono, String identificacion, String correo,
+             String usuario, String contrasenia) {
         super(nombre, sexo, edad, numeroTelefono, identificacion, correo);
         this.usuario = usuario;
         this.contrasenia = contrasenia;

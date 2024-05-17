@@ -43,6 +43,14 @@ public class Clinica {
         return mostrar;
     }
 
+    public Medico[] getMedicos() {
+        return medicos;
+    }
+
+    public Administrativo[] getAdmins() {
+        return admins;
+    }
+
     @Override
     public String toString() {
         return "Clinica  " + nombreClinica + "\n" + getPisos();
@@ -55,6 +63,12 @@ public class Clinica {
 
         if (dependencia.equals("administrador")) {
             return findAdmin(usuario, contrasenia);
+
+        } else if (dependencia.equals("medico")) {
+            return findMedico(usuario, contrasenia);
+
+        } else if (dependencia.equals("administrativo")) {
+            return findAdministrativo(usuario, contrasenia);
         }
 
         return false;
@@ -62,7 +76,7 @@ public class Clinica {
 
     private boolean findAdmin(String usuario, String contrasenia) {
         for (Administrador admin : administradores) {
-            if (admin.getContrasenia().equals(contrasenia) && admin.getUsuario().equals(usuario)) {
+            if (admin != null && admin.getContrasenia().equals(contrasenia) && admin.getUsuario().equals(usuario)) {
                 return true;
             }
         }
@@ -72,7 +86,7 @@ public class Clinica {
 
     private boolean findMedico(String usuario, String contrasnia) {
         for (Medico medico : medicos) {
-            if (medico.getContrasenia().equals(contrasnia) && medico.getUsuario().equals(usuario)) {
+            if (medico != null && medico.getContrasenia().equals(contrasnia) && medico.getUsuario().equals(usuario)) {
                 return true;
             }
         }
@@ -81,7 +95,7 @@ public class Clinica {
 
     private boolean findAdministrativo(String usuario, String contrasnia) {
         for (Administrativo admin : admins) {
-            if (admin.getContrasenia().equals(contrasnia) && admin.getUsuario().equals(usuario)) {
+            if (admin != null && admin.getContrasenia().equals(contrasnia) && admin.getUsuario().equals(usuario)) {
                 return true;
             }
         }
@@ -89,7 +103,7 @@ public class Clinica {
     }
 
     public boolean agregarMedico(Medico medico) {
-        if (indexMedico < 20) {
+        if (indexMedico < 10) {
             medicos[indexMedico] = medico;
             indexMedico++;
             return true;
@@ -98,7 +112,7 @@ public class Clinica {
     }
 
     public boolean agregarAdministrativo(Administrativo adminis) {
-        if (indexAdmin < 20) {
+        if (indexAdmin < 10) {
             admins[indexAdmin] = adminis;
             indexAdmin++;
             return true;
@@ -106,20 +120,29 @@ public class Clinica {
         return false;
     }
 
-    public boolean eliminarAdministrativo(int numero) {
-        admins[numero] = null;
-        indexMedico--;
-        return true;
+    public boolean eliminarAdministrativo(String identificacion) {
+        for (int i = 0; i < admins.length; i++) {
+           if (admins[i] != null && admins[i].getIdentificacion().equals(identificacion)) {
+                admins[i] = null;
+                return true;
+            } 
+        }
+        
+        return false;
     }
 
-    public boolean eliminarMedico(int numero) {
-        medicos[numero] = null;
-        indexMedico--;
-        return true;
+    public boolean eliminarMedico(String identificacion) {
+        for (int i = 0; i < medicos.length; i++) {
+            if (medicos[i] != null && medicos[i].getIdentificacion().equals(identificacion)) {
+                medicos[i] = null;
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean agregarAdministrador(Administrador admin) {
-        if (index < 20) {
+        if (index < 10) {
             administradores[index] = admin;
             index++;
             return true;

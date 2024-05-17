@@ -11,10 +11,14 @@ class CrearClinica extends JPanel {
     JLabel[] texto;
     JTextField[] habitaciones;
     private int[][] matriz;
+    public boolean clinicaCreada;
+    JButton regresar;
     
-    public CrearClinica(Clinica clinica, JPanel panel) {
+    public CrearClinica(Clinica clinica, JPanel panel, JButton regresar) {
         setLayout(null);
-        
+        setBackground(Color.white);
+        this.regresar = regresar;
+//        setBorder(BorderFactory.createLineBorder(Color.yellow));
         titulo = new JLabel("Asigna camillas a cada habitacion");
         
         titulo.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -46,7 +50,7 @@ class CrearClinica extends JPanel {
             add(habitaciones[i]);
         }
         botonCrearClinica = new JButton("CREAR CLINICA");
-        botonCrearClinica.setBounds(400, 500, 150, 40);
+        botonCrearClinica.setBounds(370, 100, 130, 30);
         
         botonCrearClinica.addActionListener(new ActionListener() {
             @Override
@@ -55,9 +59,13 @@ class CrearClinica extends JPanel {
                 clinica.setMatrizCamilla(getMatriz());
                 panel.setVisible(true);
                 setVisible(false);
+                clinicaCreada = true;
+                regresar.doClick();
             }
         });
         add(botonCrearClinica);
+        
+        clinicaCreada = false;
     }
     
     private JTextField limitar(JTextField entrada) {
