@@ -38,13 +38,19 @@ public class Camilla {
         return this.paciente;
     }
 
+    public char getSexoPacienteCamilla() {
+        return this.paciente.getSexo();
+    }
+
     @Override
     public String toString() {
-        if (paciente == null) {
-            return "   Camilla No :  " + id + "      Vacia \n";
+        if (isDisponible()) {
+            return "   Camilla No :  " + id + "  [ O ] \n";
         } else {
-            return "    Camilla No :  " + id + "    Id =    " + paciente.getIdentificacion()
-                    + "    nombre =    " + paciente.getNombre() + "\n";
+            return "  Camilla No : " + id + " [ X ] \n";
+
+            //return "    Camilla No :  " + id + "    Id =    " + paciente.getIdentificacion()
+            //      + "    nombre =    " + paciente.getNombre() + "\n";
         }
     }
 

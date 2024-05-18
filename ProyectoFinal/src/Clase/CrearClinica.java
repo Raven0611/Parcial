@@ -14,7 +14,7 @@ class CrearClinica extends JPanel {
     public boolean clinicaCreada;
     JButton regresar;
     
-    public CrearClinica(Clinica clinica, JPanel panel, JButton regresar) {
+    public CrearClinica(Clinica clinica, JButton regresar) {
         setLayout(null);
         setBackground(Color.white);
         this.regresar = regresar;
@@ -57,7 +57,7 @@ class CrearClinica extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 arreglo(habitaciones);
                 clinica.setMatrizCamilla(getMatriz());
-                panel.setVisible(true);
+               // panel.setVisible(true);
                 setVisible(false);
                 clinicaCreada = true;
                 regresar.doClick();

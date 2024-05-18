@@ -73,9 +73,8 @@ public class InterfazGeneral extends Componente implements ActionListener {
         regresar.addActionListener(this);
         this.add(regresar);
 
-        menu = new Menu(clinica);
-
-        crearClinica = new CrearClinica(clinica, menu, regresar);
+        // menu = new Menu(clinica);
+        crearClinica = new CrearClinica(clinica, regresar);
         crearClinica.setBounds(10, 0, 500, 500);
         crearClinica.setVisible(false);
         this.add(crearClinica);
@@ -108,17 +107,19 @@ public class InterfazGeneral extends Componente implements ActionListener {
             String usuario = login.credenciales.usuario.getText();
             String password = new String(login.credenciales.contrasenia.getPassword());
 
-            if (/*clinica.verificarUsuario(usuario, password, dependencia)*/ true) {
-                
+            if (/*clinica.verificarUsuario(usuario, password, dependencia)*/true) {
+
                 if (!crearClinica.clinicaCreada) { //La asignacion de camillas solo se realizara una vez
                     currentDir = crearClinica;
+
                     setVisibility(false, false, false, true);
                 } else {
                     currentDir = card;
                     setVisibility(false, false, true, false);
-                    
+                    //  clinica.setMatrizCamilla(crearClinica.getMatriz());
+                    // card.actualizarClinica(crearClinica.getMatriz());
                 }
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Credenciales invalidas", "Título del mensaje", JOptionPane.WARNING_MESSAGE);
             }
@@ -127,7 +128,7 @@ public class InterfazGeneral extends Componente implements ActionListener {
 
         }
     }
-    
+
     //guarda en que modulo (administrador, medico, administrativo) ha ingresado un usuario
     public void setDependencia(String dependencia) {
         this.dependencia = dependencia;
@@ -148,7 +149,7 @@ public class InterfazGeneral extends Componente implements ActionListener {
         clinica.agregarAdministrador(admin);
         registro.limpiarRegistro();
     }
-    
+
     //modifica la propiedad visibilidad de los componentes para esconderlos o mostrarlos
     private void setVisibility(boolean type1, boolean type2, boolean type3, boolean type4) {
         login.setVisible(type1);

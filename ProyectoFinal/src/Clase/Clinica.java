@@ -11,14 +11,14 @@ public class Clinica {
     private Administrativo[] admins;
 
     public Clinica(String nombreClinica, int[][] matrizCamilla) {
-        this.matrizCamilla = new int[3][4];
+        this.matrizCamilla = matrizCamilla;
         this.index = 0;
         this.indexMedico = 0;
         this.indexAdmin = 0;
         this.nombreClinica = nombreClinica;
         this.pisos = new Piso[3];
         for (int i = 0; i < 3; i++) {
-            int[] cantCamillas = matrizCamilla[i];
+            int[] cantCamillas = this.matrizCamilla[i];
             pisos[i] = new Piso(i + 1, cantCamillas);
         }
 
@@ -42,7 +42,7 @@ public class Clinica {
         }
         return mostrar;
     }
-    
+
     public Piso[] getPiso() {
         return this.pisos;
     }
@@ -57,7 +57,7 @@ public class Clinica {
 
     @Override
     public String toString() {
-        return "Clinica  " + nombreClinica + "\n" + getPisos();
+        return getPisos();
     }
 
     public boolean verificarUsuario(String usuario, String contrasenia, String dependencia) {
@@ -87,8 +87,8 @@ public class Clinica {
 
         return false;
     }
-    
-    //ingresa un paciente a la primera camilla disponible 
+//ingresa un paciente a la primera camilla disponible 
+
     public String ingresarPaciente(Paciente paciente) {
         for (int i = 0; i < pisos.length; i++) {
             for (int j = 0; j < pisos[i].getHabitacion().length; j++) {
@@ -100,10 +100,11 @@ public class Clinica {
                 }
             }
         }
-        
+
         return "";
- 
+
     }
+
     //busca un paciente y retorna una arreglo que contiene el piso, sala y camilla en donde esta el paciente
     public String[] buscarPaciente(String pacienteInfo) {
         String piso, sala, camilla;
@@ -113,8 +114,8 @@ public class Clinica {
                 for (int k = 0; k < pisos[i].getHabitacion()[j].getCamilla().length; k++) {
                     if (!pisos[i].getHabitacion()[j].getCamilla()[k].isDisponible()) {
                         Paciente paciente = pisos[i].getHabitacion()[j].getCamilla()[k].getPaciente();
-                        if (paciente.getNombre().equals(pacienteInfo) || 
-                                paciente.getIdentificacion().equals(pacienteInfo)) {
+                        if (paciente.getNombre().equals(pacienteInfo)
+                                || paciente.getIdentificacion().equals(pacienteInfo)) {
                             piso = pisos[i].getNumero() + "";
                             sala = pisos[i].getHabitacion()[j].getId();
                             camilla = pisos[i].getHabitacion()[j].getCamilla()[k].getId();
@@ -123,7 +124,7 @@ public class Clinica {
                             respuesta[2] = camilla;
                             return respuesta;
                         }
-                        
+
                     }
                 }
             }
@@ -131,26 +132,26 @@ public class Clinica {
         respuesta[0] = "";
         return respuesta;
     }
-    
+
     public InformacionMedica getInformacionMedicaPaciente(String pacienteInfo) {
         for (int i = 0; i < pisos.length; i++) {
             for (int j = 0; j < pisos[i].getHabitacion().length; j++) {
                 for (int k = 0; k < pisos[i].getHabitacion()[j].getCamilla().length; k++) {
                     if (!pisos[i].getHabitacion()[j].getCamilla()[k].isDisponible()) {
                         Paciente paciente = pisos[i].getHabitacion()[j].getCamilla()[k].getPaciente();
-                        if (paciente.getNombre().equals(pacienteInfo) || 
-                                paciente.getIdentificacion().equals(pacienteInfo)) {
+                        if (paciente.getNombre().equals(pacienteInfo)
+                                || paciente.getIdentificacion().equals(pacienteInfo)) {
                             return paciente.getInformacionMedica();
                         }
-                        
+
                     }
                 }
             }
         }
-        
+
         return null;
     }
-    
+
     public Paciente[] getPacientes() {
         Paciente[] pacientes = new Paciente[70];
         int pos = 0;
@@ -160,15 +161,15 @@ public class Clinica {
                     if (!pisos[i].getHabitacion()[j].getCamilla()[k].isDisponible()) {
                         pacientes[pos] = pisos[i].getHabitacion()[j].getCamilla()[k].getPaciente();
                         pos++;
-                        
+
                     }
                 }
             }
         }
-        
+
         return pacientes;
     }
-    
+
     public boolean eliminarPaciente(String identificacion) {
         for (int i = 0; i < pisos.length; i++) {
             for (int j = 0; j < pisos[i].getHabitacion().length; j++) {
@@ -178,12 +179,12 @@ public class Clinica {
                             pisos[i].getHabitacion()[j].getCamilla()[k].liberar();
                             return true;
                         }
-                        
+
                     }
                 }
             }
         }
-        
+
         return false;
     }
 
@@ -225,12 +226,12 @@ public class Clinica {
 
     public boolean eliminarAdministrativo(String identificacion) {
         for (int i = 0; i < admins.length; i++) {
-           if (admins[i] != null && admins[i].getIdentificacion().equals(identificacion)) {
+            if (admins[i] != null && admins[i].getIdentificacion().equals(identificacion)) {
                 admins[i] = null;
                 return true;
-            } 
+            }
         }
-        
+
         return false;
     }
 
@@ -302,6 +303,38 @@ public class Clinica {
             }
         }
 
+    }
+
+    public String generarInformePacientes() {
+        int totalPacientes = 0;
+        int totalHombres = 0;
+        int totalMujeres = 0;
+
+        for (Piso piso : pisos) {
+            for (Habitacion habitacion : piso.getHabitacion()) {
+                for (Camilla camilla : habitacion.getCamilla()) {
+                    if (!camilla.isDisponible()) {
+                        totalPacientes++;
+                        char sexo = camilla.getPaciente().getSexo();
+                        if (sexo == 'M') {
+                            totalHombres++;
+                        } else if (sexo == 'F') {
+                            totalMujeres++;
+                        }
+                    }
+                }
+            }
+        }
+
+        double porcentajeHombres = (totalPacientes == 0) ? 0 : ((double) totalHombres / totalPacientes) * 100;
+        double porcentajeMujeres = (totalPacientes == 0) ? 0 : ((double) totalMujeres / totalPacientes) * 100;
+
+        return String.format("Informe de Pacientes:\n"
+                + "Total de Pacientes: %d\n"
+                + "Total de Hombres: %d (%.2f%%)\n"
+                + "Total de Mujeres: %d (%.2f%%)",
+                totalPacientes, totalHombres, porcentajeHombres,
+                totalMujeres, porcentajeMujeres);
     }
 
 }

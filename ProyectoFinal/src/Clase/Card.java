@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Clase;
 
 import java.awt.BorderLayout;
@@ -25,10 +21,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Dialejo
- */
 public class Card extends Componente implements ItemListener, ActionListener {
 
     JPanel cards, eliminarUsuarioPanel;
@@ -39,10 +31,11 @@ public class Card extends Componente implements ItemListener, ActionListener {
     Credenciales credencialesMedico, credencialesAdministrativo;
     private final String registrarMedicoLabel = "Registrar medico";
     private final String registrarAdministrativoLabel = "Registrar Administrativo";
+    private final String menuLabel = "Generar Informe";
     Clinica clinica;
     JComboBox cb;
     String comboBoxItems[];
-            
+
     public Card(Clinica clinica) {
         this.clinica = clinica;
 
@@ -89,11 +82,14 @@ public class Card extends Componente implements ItemListener, ActionListener {
         eliminarUsuarioPanel = new JPanel();
         cards.add(eliminarUsuarioPanel, "Eliminar Medico");
 
+        Menu menuPanel = new Menu(clinica);
+        cards.add(menuPanel, menuLabel);
+
         JPanel comboBoxPane = new JPanel();
         comboBoxPane.setBackground(Color.white);
         comboBoxItems = new String[]{registrarMedicoLabel, registrarAdministrativoLabel, "Eliminar Medico",
             "Eliminar Administrativo", "Ingresar Paciente", "Buscar Paciente", "Eliminar Paciente",
-            "Informacion Medica Paciente"};
+            "Informacion Medica Paciente", menuLabel};
         cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
         cb.addItemListener(this);
@@ -102,6 +98,10 @@ public class Card extends Componente implements ItemListener, ActionListener {
         this.add(comboBoxPane, BorderLayout.PAGE_START);
         this.add(cards, BorderLayout.CENTER);
 
+    }
+
+    public void actualizarClinica(int[][] matriz) {
+        this.clinica.setMatrizCamilla(matriz);
     }
 
     @Override
@@ -124,6 +124,9 @@ public class Card extends Componente implements ItemListener, ActionListener {
 
         } else if (((String) evt.getItem()).equals("Informacion Medica Paciente")) {
             cards.add(informacionMedicaPaciente(), "Informacion Medica Paciente");
+
+        } else if (((String) evt.getItem()).equals("Menu")) {
+            cards.add(new Menu(clinica), "Menu");
         }
 
         cl.show(cards, (String) evt.getItem());
@@ -356,8 +359,8 @@ public class Card extends Componente implements ItemListener, ActionListener {
                             infoMedica.setTensionArterial(form.tensionArterial.getText());
                             infoMedica.setPeso(form.peso.getText());
                             infoMedica.setEstatura(form.estatura.getText());
-                            infoMedica.setRH(((String)form.rh.getSelectedItem()).charAt(0));
-                            infoMedica.setTipoSangre(((String)form.tipoSangre.getSelectedItem()).charAt(0));
+                            infoMedica.setRH(((String) form.rh.getSelectedItem()).charAt(0));
+                            infoMedica.setTipoSangre(((String) form.tipoSangre.getSelectedItem()).charAt(0));
                             cb.setSelectedIndex(0);
                         }
                     });

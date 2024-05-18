@@ -2,6 +2,7 @@ package Clase;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -9,13 +10,13 @@ import javax.swing.JTextArea;
 
 public class Menu extends Componente {
 
-    JButton mostrarPersona, crearPersona;
+    JButton mostrarPersona, InformePaciente;
     JTextArea mostrar;
 
     public Menu(Clinica clinica) {
         setLayout(null);
 
-        mostrarPersona = crearBoton("mostrar Personas", 20, 0, 150, 20);
+        mostrarPersona = crearBoton("Mostrar Camillas", 20, 20, 150, 20);
         mostrarPersona.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -23,36 +24,19 @@ public class Menu extends Componente {
             }
         });
         add(mostrarPersona);
-        mostrar = crearTextArea("mostrar", 180, 0, 400, 300);
+        mostrar = crearTextArea("mostrar", 20, 200, 400, 300);
         JScrollPane scrollPane = new JScrollPane(mostrar);
-        scrollPane.setBounds(180, 0, 400, 300);
+        scrollPane.setBounds(50, 100, 400, 300);
         add(scrollPane);
-        
-    }
-}
 
-class Ini extends JFrame {
-
-    public Ini() {
-        setTitle("Inicio");
-        setSize(600, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        int[][] matrizCamilla = {
-            {2, 2, 2, 2},
-            {2, 2, 2, 2},
-            {2, 2, 2, 2}
-        };
-        Clinica clinica = new Clinica("HealthCare", matrizCamilla);
-
-        Menu menu = new Menu(clinica);
-        add(menu);
-
-        setVisible(true);
+        InformePaciente = crearBoton("Cantidad Pacientes", 300, 20, 150, 20);
+        InformePaciente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrar.setText(clinica.generarInformePacientes());
+            }
+        });
+        add(InformePaciente);
     }
 
-    public static void main(String[] args) {
-
-        Ini inicio = new Ini();
-
-    }
 }
