@@ -17,11 +17,6 @@ public class Clinica {
         this.indexAdmin = 0;
         this.nombreClinica = nombreClinica;
         this.pisos = new Piso[3];
-        for (int i = 0; i < 3; i++) {
-            int[] cantCamillas = this.matrizCamilla[i];
-            pisos[i] = new Piso(i + 1, cantCamillas);
-        }
-
         administradores = new Administrador[10];
         medicos = new Medico[10];
         admins = new Administrativo[10];
@@ -273,6 +268,10 @@ public class Clinica {
     public void setMatrizCamilla(int[][] matrizCamilla) {
         System.out.println("MODIFICADO");
         this.matrizCamilla = matrizCamilla;
+        for (int i = 0; i < 3; i++) {
+            int[] cantCamillas = this.matrizCamilla[i];
+            pisos[i] = new Piso(i + 1, cantCamillas);
+        }
     }
 
     public void desplazarPacientesHabitacionDesactivada(int piso, int habitacion) {
