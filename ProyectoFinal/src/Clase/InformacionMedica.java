@@ -4,9 +4,9 @@ package Clase;
 public class InformacionMedica {
     private char tipoSangre;
     private char RH;
-    private double estatura;
-    private double peso;
-    private int tensionArterial;
+    private String estatura;
+    private String peso;
+    private String tensionArterial;
     private String diagnosticoInicial;
     private int estado;
 
@@ -29,27 +29,27 @@ public class InformacionMedica {
         this.RH = RH;
     }
 
-    public double getEstatura() {
+    public String getEstatura() {
         return estatura;
     }
 
-    public void setEstatura(double estatura) {
+    public void setEstatura(String estatura) {
         this.estatura = estatura;
     }
 
-    public double getPeso() {
+    public String getPeso() {
         return peso;
     }
 
-    public void setPeso(double peso) {
+    public void setPeso(String peso) {
         this.peso = peso;
     }
 
-    public int getTensionArterial() {
+    public String getTensionArterial() {
         return tensionArterial;
     }
 
-    public void setTensionArterial(int tensionArterial) {
+    public void setTensionArterial(String tensionArterial) {
         this.tensionArterial = tensionArterial;
     }
 

@@ -42,6 +42,10 @@ public class Clinica {
         }
         return mostrar;
     }
+    
+    public Piso[] getPiso() {
+        return this.pisos;
+    }
 
     public Medico[] getMedicos() {
         return medicos;
@@ -81,6 +85,105 @@ public class Clinica {
             }
         }
 
+        return false;
+    }
+    
+    //ingresa un paciente a la primera camilla disponible 
+    public String ingresarPaciente(Paciente paciente) {
+        for (int i = 0; i < pisos.length; i++) {
+            for (int j = 0; j < pisos[i].getHabitacion().length; j++) {
+                for (int k = 0; k < pisos[i].getHabitacion()[j].getCamilla().length; k++) {
+                    if (pisos[i].getHabitacion()[j].getCamilla()[k].isDisponible()) {
+                        pisos[i].getHabitacion()[j].getCamilla()[k].ocupar(paciente);
+                        return pisos[i].getHabitacion()[j].getCamilla()[k].getId();
+                    }
+                }
+            }
+        }
+        
+        return "";
+ 
+    }
+    //busca un paciente y retorna una arreglo que contiene el piso, sala y camilla en donde esta el paciente
+    public String[] buscarPaciente(String pacienteInfo) {
+        String piso, sala, camilla;
+        String[] respuesta = new String[3];
+        for (int i = 0; i < pisos.length; i++) {
+            for (int j = 0; j < pisos[i].getHabitacion().length; j++) {
+                for (int k = 0; k < pisos[i].getHabitacion()[j].getCamilla().length; k++) {
+                    if (!pisos[i].getHabitacion()[j].getCamilla()[k].isDisponible()) {
+                        Paciente paciente = pisos[i].getHabitacion()[j].getCamilla()[k].getPaciente();
+                        if (paciente.getNombre().equals(pacienteInfo) || 
+                                paciente.getIdentificacion().equals(pacienteInfo)) {
+                            piso = pisos[i].getNumero() + "";
+                            sala = pisos[i].getHabitacion()[j].getId();
+                            camilla = pisos[i].getHabitacion()[j].getCamilla()[k].getId();
+                            respuesta[0] = piso;
+                            respuesta[1] = sala;
+                            respuesta[2] = camilla;
+                            return respuesta;
+                        }
+                        
+                    }
+                }
+            }
+        }
+        respuesta[0] = "";
+        return respuesta;
+    }
+    
+    public InformacionMedica getInformacionMedicaPaciente(String pacienteInfo) {
+        for (int i = 0; i < pisos.length; i++) {
+            for (int j = 0; j < pisos[i].getHabitacion().length; j++) {
+                for (int k = 0; k < pisos[i].getHabitacion()[j].getCamilla().length; k++) {
+                    if (!pisos[i].getHabitacion()[j].getCamilla()[k].isDisponible()) {
+                        Paciente paciente = pisos[i].getHabitacion()[j].getCamilla()[k].getPaciente();
+                        if (paciente.getNombre().equals(pacienteInfo) || 
+                                paciente.getIdentificacion().equals(pacienteInfo)) {
+                            return paciente.getInformacionMedica();
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
+        return null;
+    }
+    
+    public Paciente[] getPacientes() {
+        Paciente[] pacientes = new Paciente[70];
+        int pos = 0;
+        for (int i = 0; i < pisos.length; i++) {
+            for (int j = 0; j < pisos[i].getHabitacion().length; j++) {
+                for (int k = 0; k < pisos[i].getHabitacion()[j].getCamilla().length; k++) {
+                    if (!pisos[i].getHabitacion()[j].getCamilla()[k].isDisponible()) {
+                        pacientes[pos] = pisos[i].getHabitacion()[j].getCamilla()[k].getPaciente();
+                        pos++;
+                        
+                    }
+                }
+            }
+        }
+        
+        return pacientes;
+    }
+    
+    public boolean eliminarPaciente(String identificacion) {
+        for (int i = 0; i < pisos.length; i++) {
+            for (int j = 0; j < pisos[i].getHabitacion().length; j++) {
+                for (int k = 0; k < pisos[i].getHabitacion()[j].getCamilla().length; k++) {
+                    if (!pisos[i].getHabitacion()[j].getCamilla()[k].isDisponible()) {
+                        if (pisos[i].getHabitacion()[j].getCamilla()[k].getPaciente().getIdentificacion().equals(identificacion)) {
+                            pisos[i].getHabitacion()[j].getCamilla()[k].liberar();
+                            return true;
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
         return false;
     }
 

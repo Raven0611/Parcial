@@ -116,6 +116,7 @@ public class InterfazGeneral extends Componente implements ActionListener {
                 } else {
                     currentDir = card;
                     setVisibility(false, false, true, false);
+                    
                 }
                 
             } else {
@@ -126,7 +127,8 @@ public class InterfazGeneral extends Componente implements ActionListener {
 
         }
     }
-
+    
+    //guarda en que modulo (administrador, medico, administrativo) ha ingresado un usuario
     public void setDependencia(String dependencia) {
         this.dependencia = dependencia;
         if (dependencia.equals("administrador")) {
@@ -137,7 +139,7 @@ public class InterfazGeneral extends Componente implements ActionListener {
         }
     }
 
-    private void registrarAdministrador() {
+    private void registrarAdministrador() { //registra un nuevo usuario administrador
         String[] input = registro.formulario.getInput();
         String usuario = registro.credenciales.usuario.getText();
         String password = new String(registro.credenciales.contrasenia.getPassword());
@@ -146,7 +148,8 @@ public class InterfazGeneral extends Componente implements ActionListener {
         clinica.agregarAdministrador(admin);
         registro.limpiarRegistro();
     }
-
+    
+    //modifica la propiedad visibilidad de los componentes para esconderlos o mostrarlos
     private void setVisibility(boolean type1, boolean type2, boolean type3, boolean type4) {
         login.setVisible(type1);
         registro.setVisible(type2);

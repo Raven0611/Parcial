@@ -47,14 +47,14 @@ public class Formulario extends Componente {
 
     }
 
-    private void agregarCampoTexto() {
+    private void agregarCampoTexto() {//agrega todos los JTextField al panel formulario
 
         for (JTextField elemento : elementos) {
             this.add(elemento);
         }
     }
 
-    public String[] getInput() {
+    public String[] getInput() {//retorna un arreglo de strings con la informacion proporcionada por el usuario
         String[] input = new String[7];
         for (int i = 0; i < elementos.length; i++) {
             input[i] = elementos[i].getText();
