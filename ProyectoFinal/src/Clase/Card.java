@@ -89,7 +89,7 @@ public class Card extends Componente implements ItemListener, ActionListener {
         comboBoxPane.setBackground(Color.white);
         comboBoxItems = new String[]{registrarMedicoLabel, registrarAdministrativoLabel, "Eliminar Medico",
             "Eliminar Administrativo", "Ingresar Paciente", "Buscar Paciente", "Eliminar Paciente",
-            "Informacion Medica Paciente", menuLabel};
+            "Informacion Medica Paciente", menuLabel, "Inhabilitar habitacion"};
         cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
         cb.addItemListener(this);
@@ -125,8 +125,11 @@ public class Card extends Componente implements ItemListener, ActionListener {
         } else if (((String) evt.getItem()).equals("Informacion Medica Paciente")) {
             cards.add(informacionMedicaPaciente(), "Informacion Medica Paciente");
 
-        } else if (((String) evt.getItem()).equals("Menu")) {
-            cards.add(new Menu(clinica), "Menu");
+        } else if (((String) evt.getItem()).equals("Generar Informe")) {
+            cards.add(new Menu(clinica), "Generar Informe");
+            
+        } else if (((String) evt.getItem()).equals("Inhabilitar habitacion")) {
+            cards.add(inhabilitarHabitacion(), "Inhabilitar habitacion");
         }
 
         cl.show(cards, (String) evt.getItem());
@@ -378,6 +381,44 @@ public class Card extends Componente implements ItemListener, ActionListener {
         panel.add(form, BorderLayout.CENTER);
         panel.add(ingresarBtn, BorderLayout.SOUTH);
         return panel;
+    }
+
+    //retorna un panel 
+    private JScrollPane inhabilitarHabitacion() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        for (int i = 0; i < 3; i++) {
+            panel.add(new JLabel("Piso " + (i + 1)));
+            JPanel botones = new JPanel();
+            botones.setLayout(new BoxLayout(botones, BoxLayout.X_AXIS));
+            for (int j = 0; j < 4; j++) {
+                boolean estado = clinica.getEstadoHabitacion(i, j);
+                JButton inhabilitarBtn = new JButton((estado ? "Inhabilitar" : "Habilitar") + "Habitacion\n" + clinica.getHabitacionId(i, j));
+                inhabilitarBtn.setActionCommand(clinica.getHabitacionId(i, j));
+                inhabilitarBtn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String habitacionId = e.getActionCommand();
+                        int piso = habitacionId.charAt(0) - 49;
+                        int habitacion = habitacionId.charAt(4) - 49;
+                        if (estado) {
+                            clinica.desactivarHabitacion(piso, habitacion);
+                            clinica.desplazarPacientesHabitacionDesactivada(piso, habitacion);
+                        } else {
+                            clinica.activarHabitacion(piso, habitacion);
+                        }
+                        
+                        JButton btn = (JButton) e.getSource();
+                        btn.setEnabled(false);
+                    }
+                });
+                botones.add(inhabilitarBtn);
+            }
+            panel.add(botones);
+        }
+
+        return new JScrollPane(panel);
     }
 
 }

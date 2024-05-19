@@ -60,6 +60,10 @@ public class Habitacion {
     public void desactivarHabitacion() {
         this.estado = false;
     }
+    
+    public void cambiarEstadoHabitacion() {
+        this.estado = !this.estado;
+    }
 
     public boolean liberarPacienteHabitacion(int num) {
         if (camillas[num].isDisponible() && num <= camillas.length) {

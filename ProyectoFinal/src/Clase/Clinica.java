@@ -87,12 +87,15 @@ public class Clinica {
     public String ingresarPaciente(Paciente paciente) {
         for (int i = 0; i < pisos.length; i++) {
             for (int j = 0; j < pisos[i].getHabitacion().length; j++) {
-                for (int k = 0; k < pisos[i].getHabitacion()[j].getCamilla().length; k++) {
-                    if (pisos[i].getHabitacion()[j].getCamilla()[k].isDisponible()) {
-                        pisos[i].getHabitacion()[j].getCamilla()[k].ocupar(paciente);
-                        return pisos[i].getHabitacion()[j].getCamilla()[k].getId();
+                if (pisos[i].getHabitacion()[j].obtenerEstado()) {
+                    for (int k = 0; k < pisos[i].getHabitacion()[j].getCamilla().length; k++) {
+                        if (pisos[i].getHabitacion()[j].getCamilla()[k].isDisponible()) {
+                            pisos[i].getHabitacion()[j].getCamilla()[k].ocupar(paciente);
+                            return pisos[i].getHabitacion()[j].getCamilla()[k].getId();
+                        }
                     }
                 }
+
             }
         }
 
@@ -254,6 +257,10 @@ public class Clinica {
         return this.pisos[piso].desactivarHabitacionPiso(habitacion);
     }
 
+    public String getHabitacionId(int piso, int habitacion) {
+        return pisos[piso].getHabitacion(habitacion).getId();
+    }
+
     public boolean activarHabitacion(int piso, int habitacion) {
         return this.pisos[piso].activarHabitacionPiso(habitacion);
     }
@@ -263,6 +270,10 @@ public class Clinica {
             return pisos[piso].liberarPacienteHabitacionPiso(habitacion, camilla);
         }
         return false;
+    }
+
+    public boolean getEstadoHabitacion(int piso, int habitacion) {
+        return pisos[piso].getHabitacion()[habitacion].obtenerEstado();
     }
 
     public void setMatrizCamilla(int[][] matrizCamilla) {
@@ -284,7 +295,7 @@ public class Clinica {
                     if (!camilla.isDisponible()) { // Verificar si la camilla está ocupada
                         Paciente paciente = camilla.getPaciente();
                         // Buscar una habitación activa con espacio disponible en el mismo piso
-                        for (int i = 0; i < pisos[piso].getHabitacion().length; i++) {
+                outer:  for (int i = 0; i < pisos[piso].getHabitacion().length; i++) {
                             Habitacion habitacionDestino = pisos[piso].getHabitacion(i);
                             if (habitacionDestino.obtenerEstado()) { // Verificar si la habitación está activa
                                 Camilla[] camillasDestino = habitacionDestino.getCamilla();
@@ -292,7 +303,7 @@ public class Clinica {
                                     if (camillaDestino.isDisponible()) { // Verificar si la camilla está disponible
                                         camillaDestino.ocupar(paciente);
                                         camilla.liberar(); // Liberar la camilla de la habitación desactivada
-                                        break;
+                                        break outer;
                                     }
                                 }
                             }
