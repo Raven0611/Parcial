@@ -36,7 +36,7 @@ public class Card extends Componente implements ItemListener, ActionListener {
     JComboBox cb;
     String comboBoxItems[];
 
-    public Card(Clinica clinica) {
+    public Card(Clinica clinica, String[] funcionalidades) {
         this.clinica = clinica;
 
         this.setBounds(0, 0, 500, 450);
@@ -87,10 +87,7 @@ public class Card extends Componente implements ItemListener, ActionListener {
 
         JPanel comboBoxPane = new JPanel();
         comboBoxPane.setBackground(Color.white);
-        comboBoxItems = new String[]{registrarMedicoLabel, registrarAdministrativoLabel, "Eliminar Medico",
-            "Eliminar Administrativo", "Ingresar Paciente", "Buscar Paciente", "Eliminar Paciente",
-            "Informacion Medica Paciente", menuLabel, "Inhabilitar habitacion"};
-        cb = new JComboBox(comboBoxItems);
+        cb = new JComboBox(funcionalidades);
         cb.setEditable(false);
         cb.addItemListener(this);
         comboBoxPane.add(cb);
@@ -144,6 +141,8 @@ public class Card extends Componente implements ItemListener, ActionListener {
             registrarAdministrativo();
         }
     }
+    
+    
 
     private void registrarMedico() { //registra personal medico
         String[] input = formularioMedico.getInput();

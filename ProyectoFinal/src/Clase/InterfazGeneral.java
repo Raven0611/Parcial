@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,11 +20,21 @@ public class InterfazGeneral extends Componente implements ActionListener {
     Registro registro;
     JPanel currentDir;
     Card card;
+    Card cardAdministrador;
+    Card cardMedico;
+    Card cardAdministrativo;
     Inicio init;
     String dependencia;
     Clinica clinica;
     CrearClinica crearClinica;
     int[][] x;
+    private final String[] funcionalidadesAdministrador = {"Inhabilitar habitacion", "Generar Informe",
+    "Registrar medico", "Registrar Administrativo", "Eliminar Medico", "Eliminar Administrativo", 
+    "Ingresar Paciente", "Buscar Paciente"};
+    private final String[] funcionalidadesMedico = {"Generar Informe", "Ingresar Paciente", 
+        "Buscar Paciente", "Eliminar Paciente", "Informacion Medica Paciente"};
+    private final String[] funcionalidadesAdministrativo = {"Generar Informe", "Ingresar Paciente", 
+        "Buscar Paciente"};
 
     public InterfazGeneral(Inicio init) {
         int[][] matrizCamilla = {
@@ -48,9 +59,17 @@ public class InterfazGeneral extends Componente implements ActionListener {
         registro.setVisible(false);
         this.add(registro);
 
-        card = new Card(clinica);
+        card = new Card(clinica, funcionalidadesAdministrativo);
         card.setVisible(false);
-        this.add(card);
+        cardAdministrador = new Card(clinica, funcionalidadesAdministrador);
+        cardAdministrador.setVisible(false);
+        this.add(cardAdministrador);
+        cardMedico = new Card(clinica, funcionalidadesMedico);
+        cardMedico.setVisible(false);
+        this.add(cardMedico);
+        cardAdministrativo = new Card(clinica, funcionalidadesAdministrativo);
+        cardAdministrativo.setVisible(false);
+        this.add(cardAdministrativo);
 
         nuevoUsuario = new JPanel();
         nuevoUsuario.setLayout(null);
@@ -107,7 +126,7 @@ public class InterfazGeneral extends Componente implements ActionListener {
             String usuario = login.credenciales.usuario.getText();
             String password = new String(login.credenciales.contrasenia.getPassword());
 
-            if (/*clinica.verificarUsuario(usuario, password, dependencia)*/true) {
+            if (clinica.verificarUsuario(usuario, password, dependencia)) {
 
                 if (!crearClinica.clinicaCreada) { //La asignacion de camillas solo se realizara una vez
                     currentDir = crearClinica;
@@ -115,6 +134,7 @@ public class InterfazGeneral extends Componente implements ActionListener {
                     setVisibility(false, false, false, true);
                 } else {
                     currentDir = card;
+                    setEstadoInicialCards();
                     setVisibility(false, false, true, false);
                     //  clinica.setMatrizCamilla(crearClinica.getMatriz());
                     // card.actualizarClinica(crearClinica.getMatriz());
@@ -154,12 +174,27 @@ public class InterfazGeneral extends Componente implements ActionListener {
     private void setVisibility(boolean type1, boolean type2, boolean type3, boolean type4) {
         login.setVisible(type1);
         registro.setVisible(type2);
-        card.setVisible(type3);
         crearClinica.setVisible(type4);
+        
+        if (dependencia.equals("administrador")) {
+            cardAdministrador.setVisible(type3);
+            
+        } else if (dependencia.equals("medico")) {
+            cardMedico.setVisible(type3);
+            
+        } else {
+            cardAdministrativo.setVisible(type3);
+        }
 
         if (dependencia.equals("administrador")) {
             nuevoUsuario.setVisible(type1);
         }
+    }
+    
+    private void setEstadoInicialCards() {
+        cardAdministrador.cb.setSelectedIndex(funcionalidadesAdministrador.length - 1);
+        cardMedico.cb.setSelectedIndex(funcionalidadesMedico.length - 1);
+        cardAdministrativo.cb.setSelectedIndex(funcionalidadesAdministrativo.length - 1);
     }
 
 }
