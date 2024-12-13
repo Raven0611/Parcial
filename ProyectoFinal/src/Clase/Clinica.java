@@ -99,7 +99,7 @@ public class Clinica {
             }
         }
 
-        return "";
+        return "fallo ";
 
     }
 
